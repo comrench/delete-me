@@ -2,6 +2,8 @@ import express from 'express';
 import axios from 'axios';
 import { Parser } from 'json2csv';
 import { writeFile } from 'fs';
+import { parseInputData } from '../etc/helper.js';
+import { inputData } from '../input.js';
 
 const routes = express.Router();
 
@@ -12,7 +14,8 @@ routes.get('/loadETFs', async (req, res, next) => {
       'https://jsonplaceholder.typicode.com/todos'
       // 'https://purposecloud.s3.amazonaws.com/challenge-data.json'
     );
-    res.send(response.data);
+    // parseInputData(inputData);
+    res.json(parseInputData(inputData));
   } catch (err) {
     next(err);
   }
@@ -22,8 +25,8 @@ routes.post('/saveETFs', async (req, res, next) => {
   console.log('routes -> /saveETFs');
   try {
     const response = await axios.get(
-      // 'https://jsonplaceholder.typicode.com/todos'
-      'https://purposecloud.s3.amazonaws.com/challenge-data.json'
+      'https://jsonplaceholder.typicode.com/todos'
+      // 'https://purposecloud.s3.amazonaws.com/challenge-data.json'
     );
 
     const parser = new Parser();
